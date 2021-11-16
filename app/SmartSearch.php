@@ -33,34 +33,44 @@ class SmartSearch
 
     private function privateRun(): array
     {
-        $resultProducts = [];
-        $keywords = explode(' ', $this->keyPhrase);
-        $croppedSortedKeywords = [];
-        foreach ($keywords as $keyword) {
-            $this->currentWord = $keyword;
-            if ($this->isNotIgnored() && $this->isNotNumber() &&
-                $this->isNotContainsPercent() && $this->isNotCountWord() &&
-                strlen($this->currentWord) > 3) {
-                $croppedWord = mb_substr($this->currentWord, 0, -3);
-                array_push($croppedSortedKeywords, $croppedWord);
-            }
-        }
+        $resultProducts = []; //Результат поиска
+        $keywords = explode(' ', $this->keyPhrase); //Разбиваем запрос на ключевые слова
+        $sortedKeywords = $this->getSortedKeywords($keywords); //Оставляем те, что подходят под условия
 
-        return $croppedSortedKeywords;
-
-        $storedProducts = Product::all();
+        $storedProducts = Product::all(); //Получаем все продукты с базы данных
         foreach ($storedProducts as $storedProduct) {
             $descriptionWords = explode(' ', mb_strtolower($storedProduct->description));
-            for ($i = 0; $i < 3; $i++) {
-                if (in_array($descriptionWords[$i], $croppedSortedKeywords)) {
-                    $storedProduct->hideFullInfo = true;
-                    array_push($resultProducts, $storedProduct);
-                    break;
+
+            foreach ($sortedKeywords as $keyword) {
+                for ($i = 0; $i < 3; $i++) {
+                    $croppedDescriptionWord = mb_substr($descriptionWords[$i], 0, -3);
+                    if (str_contains($keyword, $croppedDescriptionWord)) {
+                        $storedProduct->hideFullInfo = true;
+                        array_push($resultProducts, [
+                            'product' => $storedProduct,
+                            'rating' => $i
+                        ]);
+                        break 2;
+                    }
                 }
             }
         }
 
         return $resultProducts;
+    }
+
+    private function getSortedKeywords($keywords): array
+    {
+        $sortedKeywords = [];
+        foreach ($keywords as $keyword) {
+            $this->currentWord = $keyword;
+            if ($this->isNotIgnored() && $this->isNotNumber() &&
+                $this->isNotContainsPercent() && $this->isNotCountWord() &&
+                strlen($this->currentWord) > 3) {
+                array_push($sortedKeywords, $this->currentWord);
+            }
+        }
+        return $sortedKeywords;
     }
 
     private function isNotIgnored(): bool
