@@ -55,6 +55,10 @@ class SmartSearch
             }
         }
 
+        usort($resultProducts, function ($a, $b) {
+            return $a->searchRating < $b->searchRating ? -1 : 1;
+        });
+
         return $resultProducts;
     }
 
