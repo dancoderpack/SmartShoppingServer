@@ -35,12 +35,13 @@ class SmartSearch
     {
         $resultProducts = [];
         $keywords = explode(' ', $this->keyPhrase);
-        $sortedKeywords = [];
+        $croppedSortedKeywords = [];
         foreach ($keywords as $keyword) {
             $this->currentWord = $keyword;
             if ($this->isNotIgnored() && $this->isNotNumber() &&
                 $this->isNotContainsPercent() && $this->isNotCountWord()) {
-                array_push($sortedKeywords, $this->currentWord);
+                $croppedWord = substr($this->currentWord, 0, -3);
+                array_push($croppedSortedKeywords, $croppedWord);
             }
         }
 
@@ -48,7 +49,7 @@ class SmartSearch
         foreach ($storedProducts as $storedProduct) {
             $descriptionWords = explode(' ', mb_strtolower($storedProduct->description));
             for ($i = 0; $i < 3; $i++) {
-                if (in_array($descriptionWords[$i], $sortedKeywords)) {
+                if (in_array($descriptionWords[$i], $croppedSortedKeywords)) {
                     $storedProduct->hideFullInfo = true;
                     array_push($resultProducts, $storedProduct);
                     break;
