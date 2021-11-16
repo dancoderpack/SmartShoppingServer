@@ -48,6 +48,7 @@ class SmartSearch
         foreach ($storedProducts as $storedProduct) {
             $descriptionWords = explode(' ', strtolower($storedProduct->description));
             for ($i = 0; $i < 3; $i++) {
+                array_push($resultProducts, $descriptionWords[$i]);
                 if (in_array($descriptionWords[$i], $sortedKeywords)) {
                     array_push($resultProducts, $storedProduct);
                     break;
