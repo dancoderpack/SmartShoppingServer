@@ -93,7 +93,8 @@ class Product extends Model
             'title' => $this->title,
             'image' => $this->image,
             'rate' => $this->rate,
-            'price' => $this->price
+            'price' => $this->price,
+            'searchRating' => $this->searchRating
         ];
 
         return $this->hideFullInfo ? $base_info :
