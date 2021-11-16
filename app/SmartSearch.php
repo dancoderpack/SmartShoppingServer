@@ -49,6 +49,7 @@ class SmartSearch
             $descriptionWords = explode(' ', mb_strtolower($storedProduct->description));
             for ($i = 0; $i < 3; $i++) {
                 if (in_array($descriptionWords[$i], $sortedKeywords)) {
+                    $storedProduct->hideFullInfo = true;
                     array_push($resultProducts, $storedProduct);
                     break;
                 }
