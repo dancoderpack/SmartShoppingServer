@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Error;
 use App\Models\Product;
 use App\Response;
+use App\SmartSearch;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
@@ -33,9 +34,9 @@ class ProductsController extends Controller
         return Response::create(Error::getByCode(Error::PRODUCT_NOT_FOUND));
     }
 
-    public function search(string $keyword): JsonResponse
+    public function search(string $keyPhrase): JsonResponse
     {
-        $products = Product::search($keyword);
+        $products = SmartSearch::run($keyPhrase);
         if ($products) return Response::create($products);
         return Response::create(Error::getByCode(Error::PRODUCT_NOT_FOUND));
     }
