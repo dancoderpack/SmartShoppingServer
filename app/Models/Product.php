@@ -28,6 +28,10 @@ class Product extends Model
      */
     public $hideFullInfo = false;
 
+    /**
+     * @var int
+     */
+    public $searchRating = 0;
 
     /**
      * @param $id
@@ -90,6 +94,7 @@ class Product extends Model
             'image' => $this->image,
             'rate' => $this->rate,
             'price' => $this->price,
+            'searchRating' => $this->searchRating
         ];
 
         return $this->hideFullInfo ? $base_info :

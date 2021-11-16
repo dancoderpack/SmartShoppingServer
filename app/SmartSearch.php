@@ -36,22 +36,6 @@ class SmartSearch
         $keywords = explode(' ', $this->keyPhrase); //Разбиваем запрос на ключевые слова
         $sortedKeywords = $this->getSortedKeywords($keywords); //Оставляем те, что подходят под условия
 
-//        $storedProducts = Product::all(); //Получаем все продукты с базы данных
-//        foreach ($storedProducts as $storedProduct) {
-//            $descriptionWords = explode(' ', mb_strtolower($storedProduct->description));
-//
-//            foreach ($sortedKeywords as $keyword) {
-//                for ($i = 0; $i < 2; $i++) {
-//                    $croppedDescriptionWord = mb_substr($descriptionWords[$i], 0, -1);
-//                    if (str_contains($keyword, $croppedDescriptionWord)) {
-//                        $storedProduct->hideFullInfo = true;
-//                        array_push($resultProducts, $storedProduct);
-//                        break 2;
-//                    }
-//                }
-//            }
-//        }
-
         $query = Product::query();
         $counter = 0;
         foreach ($sortedKeywords as $keyword) {
@@ -66,6 +50,9 @@ class SmartSearch
         $resultProducts = $query->get();
         foreach ($resultProducts as $product) {
             $product->hideFullInfo = true;
+            foreach ($sortedKeywords as $keyword) {
+                $product->searchRating += mb_strpos($product->title, $keyword);
+            }
         }
 
         return $resultProducts;
