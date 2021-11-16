@@ -25,13 +25,13 @@ class SmartSearch
         $this->keyPhrase = $keyPhrase;
     }
 
-    public static function run(string $keyPhrase): array
+    public static function run(string $keyPhrase)
     {
         $smartSearch = new SmartSearch(mb_strtolower($keyPhrase));
         return $smartSearch->privateRun();
     }
 
-    private function privateRun(): array
+    private function privateRun()
     {
         $keywords = explode(' ', $this->keyPhrase); //Разбиваем запрос на ключевые слова
         $sortedKeywords = $this->getSortedKeywords($keywords); //Оставляем те, что подходят под условия
