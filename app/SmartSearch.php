@@ -35,7 +35,6 @@ class SmartSearch
     {
         $resultProducts = [];
         $keywords = explode(' ', $this->keyPhrase);
-        return $keywords;
         $sortedKeywords = [];
         foreach ($keywords as $keyword) {
             $this->currentWord = $keyword;
@@ -44,8 +43,6 @@ class SmartSearch
                 array_push($sortedKeywords, $this->currentWord);
             }
         }
-
-        return $sortedKeywords;
 
         $storedProducts = Product::all();
         foreach ($storedProducts as $storedProduct) {
@@ -63,22 +60,22 @@ class SmartSearch
 
     private function isNotIgnored(): bool
     {
-        return in_array($this->currentWord, self::$ignoredWords);
+        return !in_array($this->currentWord, self::$ignoredWords);
     }
 
     private function isNotNumber(): bool
     {
-        return is_numeric($this->currentWord);
+        return !is_numeric($this->currentWord);
     }
 
     private function isNotContainsPercent(): bool
     {
-        return str_contains($this->currentWord, '%');
+        return !str_contains($this->currentWord, '%');
     }
 
     private function isNotCountWord(): bool
     {
-        return in_array($this->currentWord, self::$countWords);
+        return !in_array($this->currentWord, self::$countWords);
     }
 
 }
