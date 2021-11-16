@@ -37,7 +37,7 @@ class ProductsController extends Controller
     public function search(string $keyPhrase): JsonResponse
     {
         $products = SmartSearch::run($keyPhrase);
-        return $products;
+        return Response::create($products);
         if ($products) return Response::create($products);
         return Response::create(Error::getByCode(Error::PRODUCT_NOT_FOUND));
     }
