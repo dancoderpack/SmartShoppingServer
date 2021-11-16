@@ -46,6 +46,7 @@ class SmartSearch
 
         $storedProducts = Product::all();
         foreach ($storedProducts as $storedProduct) {
+            return [strtolower($storedProduct->description)];
             $descriptionWords = explode(' ', strtolower($storedProduct->description));
             return $descriptionWords;
             for ($i = 0; $i < 3; $i++) {
