@@ -67,7 +67,7 @@ class SmartSearch
                 array_push($sortedKeywords, $this->currentWord);
             }
         }
-        return $sortedKeywords;
+        return [$sortedKeywords[0]];
     }
 
     private function isNotIgnored(): bool
