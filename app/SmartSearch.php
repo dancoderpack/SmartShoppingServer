@@ -46,6 +46,8 @@ class SmartSearch
             }
         }
 
+        return $croppedSortedKeywords;
+
         $storedProducts = Product::all();
         foreach ($storedProducts as $storedProduct) {
             $descriptionWords = explode(' ', mb_strtolower($storedProduct->description));
