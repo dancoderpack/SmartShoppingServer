@@ -39,7 +39,8 @@ class SmartSearch
         foreach ($keywords as $keyword) {
             $this->currentWord = $keyword;
             if ($this->isNotIgnored() && $this->isNotNumber() &&
-                $this->isNotContainsPercent() && $this->isNotCountWord()) {
+                $this->isNotContainsPercent() && $this->isNotCountWord() &&
+                strlen($this->currentWord) > 3) {
                 $croppedWord = substr($this->currentWord, 0, -3);
                 array_push($croppedSortedKeywords, $croppedWord);
             }
