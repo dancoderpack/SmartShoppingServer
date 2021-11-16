@@ -42,14 +42,11 @@ class SmartSearch
             $descriptionWords = explode(' ', mb_strtolower($storedProduct->description));
 
             foreach ($sortedKeywords as $keyword) {
-                for ($i = 0; $i < 3; $i++) {
-                    $croppedDescriptionWord = mb_substr($descriptionWords[$i], 0, -3);
+                for ($i = 0; $i < 2; $i++) {
+                    $croppedDescriptionWord = mb_substr($descriptionWords[$i], 0, -1);
                     if (str_contains($keyword, $croppedDescriptionWord)) {
                         $storedProduct->hideFullInfo = true;
-                        array_push($resultProducts, [
-                            'product' => $storedProduct,
-                            'rating' => $i
-                        ]);
+                        array_push($resultProducts, $storedProduct);
                         break 2;
                     }
                 }
