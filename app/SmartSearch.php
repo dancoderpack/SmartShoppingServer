@@ -27,7 +27,7 @@ class SmartSearch
 
     public static function run(string $keyPhrase): array
     {
-        $smartSearch = new SmartSearch(strtolower($keyPhrase));
+        $smartSearch = new SmartSearch(mb_strtolower($keyPhrase));
         return $smartSearch->privateRun();
     }
 
@@ -46,9 +46,7 @@ class SmartSearch
 
         $storedProducts = Product::all();
         foreach ($storedProducts as $storedProduct) {
-            return [strtolower($storedProduct->description)];
-            $descriptionWords = explode(' ', strtolower($storedProduct->description));
-            return $descriptionWords;
+            $descriptionWords = explode(' ', mb_strtolower($storedProduct->description));
             for ($i = 0; $i < 3; $i++) {
                 if (in_array($descriptionWords[$i], $sortedKeywords)) {
                     array_push($resultProducts, $storedProduct);
