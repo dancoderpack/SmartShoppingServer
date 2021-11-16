@@ -55,7 +55,7 @@ class SmartSearch
             }
         }
 
-        $resultProducts = $resultProducts->toArray();
+        $resultProducts = json_decode($resultProducts->toJson());
 
         usort($resultProducts, function ($a, $b) {
             return $a->searchRating < $b->searchRating ? -1 : 1;
