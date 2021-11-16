@@ -44,6 +44,8 @@ class SmartSearch
             }
         }
 
+        return $sortedKeywords;
+
         $storedProducts = Product::all();
         foreach ($storedProducts as $storedProduct) {
             $words = explode(' ', $storedProduct->description);

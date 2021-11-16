@@ -63,6 +63,7 @@ class Product extends Model
     }
 
     /**
+     * DEPRECATED
      * @param string $keyword
      * @return Builder[]|Collection
      */
