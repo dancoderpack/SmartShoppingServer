@@ -35,6 +35,7 @@ class SmartSearch
     {
         $resultProducts = [];
         $keywords = explode(' ', $this->keyPhrase);
+        return $keywords;
         $sortedKeywords = [];
         foreach ($keywords as $keyword) {
             $this->currentWord = $keyword;
