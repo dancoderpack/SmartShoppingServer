@@ -51,7 +51,7 @@ class SmartSearch
         foreach ($resultProducts as $product) {
             $product->hideFullInfo = true;
             foreach ($sortedKeywords as $keyword) {
-                $product->searchRating += mb_strpos($product->title, $keyword);
+                $product->searchRating += mb_strpos(mb_strtolower($product->title), $keyword);
             }
         }
 
