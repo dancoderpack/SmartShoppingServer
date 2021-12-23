@@ -1,7 +1,10 @@
 # Умный выбор
 ## Сервер для мобильного приложения
+
 [![Build Status](https://travis-ci.org/joemccann/dillinger.svg?branch=master)](https://travis-ci.org/joemccann/dillinger)
+
 [![N|Solid](https://www.beloe.taxi/images/Google.png)](https://play.google.com/store/apps/details?id=com.conlage.smartshopping)
+
 Мобильное приложение, предназначенное для умных покупок. 
 Составляйте список покупок, сравнивайте товары, выбирайте лучшие по цене и качеству.
 Доступно для скачивания в Google Play.
